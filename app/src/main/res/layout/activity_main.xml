@@ -54,9 +54,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="SUN"
+                android:text="일"
                 android:textStyle="bold"
-                android:textSize="18sp"
+                android:textSize="24sp"
                 android:textAlignment="center"
                 android:textColor="@android:color/holo_red_dark"
                 />
@@ -66,9 +66,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="MON"
+                android:text="월"
                 android:textStyle="bold"
-                android:textSize="18sp"
+                android:textSize="24sp"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
                 />
@@ -78,9 +78,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="TUE"
+                android:text="화"
                 android:textStyle="bold"
-                android:textSize="18sp"
+                android:textSize="24sp"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
                 />
@@ -89,9 +89,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="WED"
+                android:text="수"
                 android:textStyle="bold"
-                android:textSize="18sp"
+                android:textSize="24sp"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
                 />
@@ -100,9 +100,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="THU"
+                android:text="목"
                 android:textStyle="bold"
-                android:textSize="18sp"
+                android:textSize="24sp"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
                 />
@@ -111,9 +111,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="FRI"
+                android:text="금"
                 android:textStyle="bold"
-                android:textSize="18sp"
+                android:textSize="24sp"
                 android:textAlignment="center"
                 android:textColor="@android:color/black"
                 />
@@ -122,9 +122,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="SAT"
+                android:text="토"
                 android:textStyle="bold"
-                android:textSize="18sp"
+                android:textSize="24sp"
                 android:textAlignment="center"
                 android:textColor="@android:color/holo_blue_dark"
                 />
@@ -134,7 +134,7 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/recyclerView"/>
 
 
