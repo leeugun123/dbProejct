@@ -28,6 +28,10 @@ class CalendarAdapter(private val dayList: ArrayList<String>) : RecyclerView.Ada
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
 
         holder.dayText.text = dayList[holder.adapterPosition]
+
+
+
+
     }
 
     override fun getItemCount(): Int {

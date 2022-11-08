@@ -76,7 +76,7 @@ class MainActivity : AppCompatActivity() {
     @RequiresApi(Build.VERSION_CODES.O)
     private fun monthYearFromDate(date: LocalDate) : String{
 
-        var formatter = DateTimeFormatter.ofPattern("MM월 yyyy")
+        var formatter = DateTimeFormatter.ofPattern("yyyy MM월")
 
         //받아온 날짜를 해당 포맷으로 설정
         return date.format(formatter)
@@ -94,10 +94,12 @@ class MainActivity : AppCompatActivity() {
         var lastDay = yearMonth.lengthOfMonth()
 
         //해당 월의 첫 번째 날 가져오기(예 4월 1일)
-        var firstDay = selectedDate.withDayOfMonth(11)
+        var firstDay = selectedDate.withDayOfMonth(1)
 
         //첫번째날 요일 가져오기
         var dayOfWeek = firstDay.dayOfWeek.value
+
+
 
         for(i in 1..41){
 
