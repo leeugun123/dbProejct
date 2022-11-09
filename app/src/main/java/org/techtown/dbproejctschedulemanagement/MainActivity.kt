@@ -60,7 +60,7 @@ class MainActivity : AppCompatActivity() , OnItemListener{
         val dayList = dayInMonthArray(selectedDate)
 
         //어뎁터 초기화
-        val adapter = CalendarAdapter(dayList,this)
+        val adapter = CalendarAdapter(dayList,this,this)
 
         //레이아웃 설정(열 7개)
         var manager : RecyclerView.LayoutManager = GridLayoutManager(applicationContext,7)
@@ -130,11 +130,9 @@ class MainActivity : AppCompatActivity() , OnItemListener{
 
     //아이템 클릭 이벤트
     @RequiresApi(Build.VERSION_CODES.O)
-    override fun onItemClick(dayText: String) {
+    override fun onItemClick() {
 
-        var yearMonthDay = yearMonthFromDate(selectedDate) + " " + dayText + "일"
 
-        Toast.makeText(this,yearMonthDay,Toast.LENGTH_SHORT).show()
 
     }
 

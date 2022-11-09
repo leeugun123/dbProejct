@@ -13,7 +13,6 @@
         android:text="1"
         android:textColor="@color/black"
         android:textSize="25sp"
-        android:textStyle="bold"
         />
 
 

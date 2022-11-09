@@ -1,5 +1,8 @@
 package org.techtown.dbproejctschedulemanagement
 
+import android.app.AlertDialog
+import android.content.Context
+import android.content.Intent
 import android.graphics.Color
 import android.view.LayoutInflater
 import android.view.View
@@ -8,7 +11,8 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
 class CalendarAdapter(private val dayList: ArrayList<String>, private val
-                onItemListener: OnItemListener) : RecyclerView.Adapter<CalendarAdapter.ItemViewHolder>() {
+                onItemListener: OnItemListener,val context : Context) : RecyclerView.Adapter<CalendarAdapter.ItemViewHolder>() {
+
 
     class ItemViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
 
@@ -23,6 +27,7 @@ class CalendarAdapter(private val dayList: ArrayList<String>, private val
             .inflate(R.layout.calendar_item,parent,false)
 
         return ItemViewHolder(view)
+
 
     }
 
@@ -47,16 +52,27 @@ class CalendarAdapter(private val dayList: ArrayList<String>, private val
 
         //날짜 클릭 이벤트
         holder.itemView.setOnClickListener {
-            //인터페이스를 통해 날짜를 넘겨준다.
-            onItemListener.onItemClick(day)
+
+            val intent = Intent(context,ListActivity::class.java)
+
+            intent.putExtra("day",day)
+
+            intent.run {
+                context.startActivity(this)
+            }
+
         }
 
 
 
     }
 
+
+
     override fun getItemCount(): Int {
         return dayList.size
     }
+
+
 
 }
