@@ -15,8 +15,7 @@ class ListActivity : AppCompatActivity() {
         //이전 액티비티에서 날짜 가져오기
 
         val setDay : TextView = findViewById(R.id.day)
-        setDay.setText(day)
-
+        setDay.setText(day+"일")
 
 
 
