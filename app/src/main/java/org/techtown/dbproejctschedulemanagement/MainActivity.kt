@@ -3,6 +3,7 @@ package org.techtown.dbproejctschedulemanagement
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
@@ -12,7 +13,7 @@ import java.time.LocalDate
 import java.time.YearMonth
 import java.time.format.DateTimeFormatter
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity() , OnItemListener{
 
     private lateinit var binding : ActivityMainBinding
 
@@ -59,7 +60,7 @@ class MainActivity : AppCompatActivity() {
         val dayList = dayInMonthArray(selectedDate)
 
         //어뎁터 초기화
-        val adapter = CalendarAdapter(dayList)
+        val adapter = CalendarAdapter(dayList,this)
 
         //레이아웃 설정(열 7개)
         var manager : RecyclerView.LayoutManager = GridLayoutManager(applicationContext,7)
@@ -72,11 +73,22 @@ class MainActivity : AppCompatActivity() {
     }
 
 
-    //날짜 타입 설정
+    //날짜 타입 설정(월, 년)
     @RequiresApi(Build.VERSION_CODES.O)
     private fun monthYearFromDate(date: LocalDate) : String{
 
-        var formatter = DateTimeFormatter.ofPattern("yyyy MM월")
+        var formatter = DateTimeFormatter.ofPattern("MM월 yyyy")
+
+        //받아온 날짜를 해당 포맷으로 설정
+        return date.format(formatter)
+    }
+
+
+    //날짜 타입
+    @RequiresApi(Build.VERSION_CODES.O)
+    private fun yearMonthFromDate(date: LocalDate) : String{
+
+        var formatter = DateTimeFormatter.ofPattern("yyyy년 MM월")
 
         //받아온 날짜를 해당 포맷으로 설정
         return date.format(formatter)
@@ -101,6 +113,7 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
         for(i in 1..41){
 
             if(i <= dayOfWeek || i  > (lastDay + dayOfWeek)){
@@ -115,7 +128,15 @@ class MainActivity : AppCompatActivity() {
 
     }
 
+    //아이템 클릭 이벤트
+    @RequiresApi(Build.VERSION_CODES.O)
+    override fun onItemClick(dayText: String) {
 
+        var yearMonthDay = yearMonthFromDate(selectedDate) + " " + dayText + "일"
+
+        Toast.makeText(this,yearMonthDay,Toast.LENGTH_SHORT).show()
+
+    }
 
 
 }
