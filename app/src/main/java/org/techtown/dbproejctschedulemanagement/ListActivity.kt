@@ -27,6 +27,7 @@ class ListActivity : AppCompatActivity() {
 
         val registerButton : Button = findViewById(R.id.registerButton)
         //등록 버튼
+        val cancelButton : Button = findViewById(R.id.cancel_button)
 
         var list : RecyclerView = findViewById(R.id.list)
 
@@ -63,6 +64,10 @@ class ListActivity : AppCompatActivity() {
                 this@ListActivity.startActivity(this)
             }
 
+        }
+
+        cancelButton.setOnClickListener {
+            finish()
         }
 
 
