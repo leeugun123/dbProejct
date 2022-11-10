@@ -3,11 +3,16 @@ package org.techtown.dbproejctschedulemanagement
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.TextView
-import org.techtown.dbproejctschedulemanagement.databinding.ActivityMainBinding
+import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.RecyclerView
 
 class ListActivity : AppCompatActivity() {
+
+    private lateinit var adapter : ListAdapter
+    private lateinit var model : ListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -22,9 +27,34 @@ class ListActivity : AppCompatActivity() {
         val registerButton : Button = findViewById(R.id.registerButton)
         //등록 버튼
 
+        var list : RecyclerView = findViewById(R.id.list)
+
+
+        adapter = ListAdapter(this)
+        list.adapter = adapter
+        //recyclerView 초기화
+
+        model = ViewModelProvider(this).get(ListViewModel::class.java)
+        //viewModel 초기화
+
+
+        with(model) {
+
+            getAll().observe(this@ListActivity) { lists ->
+
+                adapter.setList(lists)
+                adapter.notifyDataSetChanged()
+
+            }
+
+        }
+
+
         registerButton.setOnClickListener {
 
             val intent = Intent(this,RegisterActivity::class.java)
+
+            intent.putExtra("day",day)
 
             intent.run {
                 this@ListActivity.startActivity(this)

@@ -7,12 +7,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 
-class ListAdapter(private val onItemListener: OnItemListener,val context : Context) : RecyclerView.Adapter<ListAdapter.ItemViewHolder>(){
+class ListAdapter(listener: ListActivity) : RecyclerView.Adapter<ListAdapter.ItemViewHolder>(){
 
-    private val list = ArrayList<WorkList>()
-    private val mCallback = onItemListener
+    private val item = ArrayList<WorkList>()
+    private val mCallback = listener
 
-    override fun getItemCount(): Int = list.size
+    override fun getItemCount(): Int = item.size
 
     class ItemViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
 
@@ -31,12 +31,19 @@ class ListAdapter(private val onItemListener: OnItemListener,val context : Conte
 
     }
 
+
+    fun setList(list: List<WorkList>) {
+
+        item.clear()
+        item.addAll(list)
+    }
+
+
+
     override fun onBindViewHolder(holder: ListAdapter.ItemViewHolder, position: Int) {
 
-
-
-
-
+        holder.title.text = item.get(holder.adapterPosition).title
+        holder.time.text = item.get(holder.adapterPosition).time
 
 
     }

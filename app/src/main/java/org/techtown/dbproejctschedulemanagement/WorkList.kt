@@ -10,15 +10,15 @@ data class WorkList(
     @PrimaryKey(autoGenerate = true) var id : Long,
 
     @ColumnInfo(name = "day")
-    var day : String,
+    var day : String?,
     //스케줄 날짜
 
     @ColumnInfo(name = "title")
-    val title : String,
+    val title : String?,
     //할일
 
     @ColumnInfo(name = "time")
-    val time : String
+    val time : String?
     //시간
 
 )
