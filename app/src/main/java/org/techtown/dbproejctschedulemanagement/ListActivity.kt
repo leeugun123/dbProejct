@@ -7,6 +7,7 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
+import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 
 class ListActivity : AppCompatActivity() {
@@ -30,8 +31,10 @@ class ListActivity : AppCompatActivity() {
         var list : RecyclerView = findViewById(R.id.list)
 
 
+
         adapter = ListAdapter(this)
         list.adapter = adapter
+        list.layoutManager = LinearLayoutManager(this)
         //recyclerView 초기화
 
         model = ViewModelProvider(this).get(ListViewModel::class.java)

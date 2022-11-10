@@ -45,7 +45,6 @@ class ListAdapter(listener: ListActivity) : RecyclerView.Adapter<ListAdapter.Ite
         holder.title.text = item.get(holder.adapterPosition).title
         holder.time.text = item.get(holder.adapterPosition).time
 
-
     }
 
 
