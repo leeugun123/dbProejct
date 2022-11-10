@@ -1,7 +1,9 @@
 package org.techtown.dbproejctschedulemanagement
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Button
 import android.widget.TextView
 import org.techtown.dbproejctschedulemanagement.databinding.ActivityMainBinding
 
@@ -16,6 +18,19 @@ class ListActivity : AppCompatActivity() {
 
         val setDay : TextView = findViewById(R.id.day)
         setDay.setText(day+"일")
+
+        val registerButton : Button = findViewById(R.id.registerButton)
+        //등록 버튼
+
+        registerButton.setOnClickListener {
+
+            val intent = Intent(this,RegisterActivity::class.java)
+
+            intent.run {
+                this@ListActivity.startActivity(this)
+            }
+
+        }
 
 
 

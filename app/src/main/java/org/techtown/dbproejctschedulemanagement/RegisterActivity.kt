@@ -15,7 +15,7 @@ class RegisterActivity : AppCompatActivity() {
         val timePicker : TimePicker = findViewById(R.id.timePicker)//시간
         val titleText : EditText = findViewById(R.id.workText)//제목
         val cancelButton : Button = findViewById(R.id.cancel_button)//취소 버튼
-        val registerButton : Button = findViewById(R.id.register_button)//등록 버튼
+        val registerButton : Button = findViewById(R.id.save_button)//저장 버튼
 
 
 
