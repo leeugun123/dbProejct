@@ -8,6 +8,7 @@ import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import org.techtown.dbproejctschedulemanagement.CalendarUtil.Companion.selectedDate
 import org.techtown.dbproejctschedulemanagement.databinding.ActivityMainBinding
 import java.time.LocalDate
 import java.time.YearMonth
@@ -17,8 +18,7 @@ class MainActivity : AppCompatActivity(){
 
     private lateinit var binding : ActivityMainBinding
 
-    //년월 변수
-    lateinit var selectedDate: LocalDate
+
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {

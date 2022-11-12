@@ -47,6 +47,12 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>, val context : 
         }else{
             //해당 일자를 넣는다.
             holder.dayText.text = day.dayOfMonth.toString()
+
+            //현재 날짜 색상 칠하기
+
+            if(day == CalendarUtil.selectedDate){
+                holder.itemView.setBackgroundColor(Color.LTGRAY)
+            }
         }
 
         //텍스트 색상 지정(토,일)
@@ -67,7 +73,7 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>, val context : 
             var iDay = day?.dayOfMonth
             //년 , 달 , 일
 
-            var yearmonDay = "$iYear 년 $iMonth 월 $iDay 일"
+            var yearmonDay = "$iYear"+"년 "+"$iMonth"+"월 "+"$iDay"+"일"
 
             intent.putExtra("day",yearmonDay)
 
