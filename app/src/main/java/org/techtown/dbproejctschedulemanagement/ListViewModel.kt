@@ -13,6 +13,10 @@ class ListViewModel(application: Application) : AndroidViewModel(application){
         return list
     }
 
+    fun getSelectedList(day : String) : LiveData<List<WorkList>>{
+        return repository.getSelectList(day)
+    }
+
     fun insert(list : WorkList){
         repository.insert(list)
     }

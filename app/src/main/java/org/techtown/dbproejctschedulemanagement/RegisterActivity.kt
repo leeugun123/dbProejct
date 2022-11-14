@@ -61,8 +61,15 @@ class RegisterActivity : AppCompatActivity() {
 
             Toast.makeText(this,"일정 등록 완료",Toast.LENGTH_SHORT).show()
 
+            var parsingDay : String? = day?.replace("년","")?.replace("월","")
+                ?.replace("일","")?.replace(" ","")
+
             lifecycleScope.launch(Dispatchers.IO){
-                with(model) { insert(WorkList(0,day,mBinding.workText.text.toString(), "$hour"+"시 "+"$min"+"분")) }
+                with(model) {
+                    if (day != null) {
+                        insert(WorkList(0,parsingDay,mBinding.workText.text.toString(), "$hour"+"시 "+"$min"+"분"))
+                    }
+                }
             }
 
             finish()

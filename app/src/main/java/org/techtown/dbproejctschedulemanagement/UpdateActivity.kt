@@ -4,6 +4,7 @@ import android.content.Intent
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.lifecycle.ViewModelProvider
@@ -56,8 +57,14 @@ class UpdateActivity : AppCompatActivity() {
 
             Toast.makeText(this,"일정 수정 완료", Toast.LENGTH_SHORT).show()
 
+            var parsingDay : String? = day?.replace("년","")?.replace("월","")
+                ?.replace("일","")?.replace(" ","")
+
+
+            Log.e("TAG",parsingDay.toString())
+
             lifecycleScope.launch(Dispatchers.IO){
-                with(model) { update(WorkList(id,day,mBinding.workText.text.toString(), "$hour"+"시 "+"$min"+"분")) }
+                with(model) { update(WorkList(id,parsingDay,mBinding.workText.text.toString(), "$hour"+"시 "+"$min"+"분")) }
             }
 
             finish()

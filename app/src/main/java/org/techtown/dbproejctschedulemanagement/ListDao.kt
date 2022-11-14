@@ -10,6 +10,9 @@ interface ListDao {
     @Query("SELECT * FROM WorkList")
     fun getList() : LiveData<List<WorkList>>
 
+    @Query("SELECT * FROM WorkList WHERE day = :day")
+    fun getSelectedList(day : String) : LiveData<List<WorkList>>
+
     @Delete
     fun deleteList(list : WorkList)
 

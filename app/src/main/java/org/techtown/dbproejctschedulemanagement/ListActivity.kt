@@ -27,12 +27,15 @@ class ListActivity : AppCompatActivity() , OnItemClick{
         setContentView(mBinding.root)
 
 
-        val day = intent.getStringExtra("day")
+        var day = intent.getStringExtra("day")
         //이전 액티비티에서 날짜 가져오기
 
 
         mBinding.day.setText(day)
 
+
+        day = day?.replace("년","")?.replace("월","")
+            ?.replace("일","")?.replace(" ","")
 
         adapter = ListAdapter(this)
         list.adapter = adapter
@@ -45,11 +48,14 @@ class ListActivity : AppCompatActivity() , OnItemClick{
 
         with(model) {
 
-            getAll().observe(this@ListActivity) { lists ->
+            if (day != null) {
+                getSelectedList(day).observe(this@ListActivity) { lists ->
 
-                adapter.setList(lists)
-                adapter.notifyDataSetChanged()
 
+                    adapter.setList(lists)
+                    adapter.notifyDataSetChanged()
+
+                }
             }
 
         }

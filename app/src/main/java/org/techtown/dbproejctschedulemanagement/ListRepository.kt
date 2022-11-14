@@ -15,6 +15,7 @@ class ListRepository (application: Application){
         listDao = db!!.listDao()
         list = db.listDao().getList()
 
+
     }
 
     fun insert(list : WorkList){
@@ -24,6 +25,12 @@ class ListRepository (application: Application){
     fun getAll() : LiveData<List<WorkList>>{
         return listDao.getList()
     }
+
+    fun getSelectList(day : String): LiveData<List<WorkList>> {
+        return listDao.getSelectedList(day)
+    }
+
+
 
     fun delete(list : WorkList){
         listDao.deleteList(list)
