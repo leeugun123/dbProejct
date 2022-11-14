@@ -2,6 +2,7 @@ package org.techtown.dbproejctschedulemanagement
 
 import android.app.AlertDialog
 import android.content.Context
+import android.content.DialogInterface
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -27,11 +28,9 @@ class ListAdapter(listener: ListActivity) : RecyclerView.Adapter<ListAdapter.Vie
 
 
     fun setList(list: List<WorkList>) {
-
         item.clear()
         item.addAll(list)
     }
-
 
 
     override fun onBindViewHolder(holder: ListAdapter.ViewHolder, position: Int) {
@@ -44,17 +43,45 @@ class ListAdapter(listener: ListActivity) : RecyclerView.Adapter<ListAdapter.Vie
 
         fun bind(item: WorkList?) {
 
+            val listArray : Array<String> = arrayOf("수정","삭제")
+
             if (item != null) {
                 binding.title.setText(item.title)
-            }
+            }//스케줄 제목
 
             if (item != null) {
                 binding.time.setText(item.time)
+            }//시간
+
+            itemView.setOnClickListener {
+                
+                val builder = AlertDialog.Builder(itemView.context)
+
+                builder.setTitle("기능 선택")
+                    .setItems(listArray
+                        ,DialogInterface.OnClickListener{dialogInterface, i ->
+
+                            if(i == 0){
+                                Toast.makeText(itemView.context,"수정",Toast.LENGTH_SHORT).show()
+                            }
+                            else if(i == 1){
+                                Toast.makeText(itemView.context,"삭제",Toast.LENGTH_SHORT).show()
+                            }
+
+                        })
+
+
+                builder.show()
+                //다이얼로그 띄어주기
+
             }
 
 
 
         }
+
+
+    }
 
 
 

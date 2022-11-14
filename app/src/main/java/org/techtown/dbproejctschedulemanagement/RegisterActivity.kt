@@ -58,7 +58,7 @@ class RegisterActivity : AppCompatActivity() {
             Toast.makeText(this,"일정 등록 완료",Toast.LENGTH_SHORT).show()
 
             lifecycleScope.launch(Dispatchers.IO){
-                with(model) { insert(WorkList(0,day,mBinding.workText.toString(), "$hour"+"시 "+"$min"+"분")) }
+                with(model) { insert(WorkList(0,day,mBinding.workText.text.toString(), "$hour"+"시 "+"$min"+"분")) }
             }
 
             finish()
