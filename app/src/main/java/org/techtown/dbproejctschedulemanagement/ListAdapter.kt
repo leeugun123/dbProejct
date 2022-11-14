@@ -54,7 +54,7 @@ class ListAdapter(listener: ListActivity) : RecyclerView.Adapter<ListAdapter.Vie
             }//시간
 
             itemView.setOnClickListener {
-                
+
                 val builder = AlertDialog.Builder(itemView.context)
 
                 builder.setTitle("기능 선택")
@@ -63,9 +63,17 @@ class ListAdapter(listener: ListActivity) : RecyclerView.Adapter<ListAdapter.Vie
 
                             if(i == 0){
                                 Toast.makeText(itemView.context,"수정",Toast.LENGTH_SHORT).show()
+
+
+
                             }
                             else if(i == 1){
-                                Toast.makeText(itemView.context,"삭제",Toast.LENGTH_SHORT).show()
+                                Toast.makeText(itemView.context,"삭제 되었습니다.",Toast.LENGTH_SHORT).show()
+
+                                if (item != null) {
+                                    mCallback.deleteList(item)
+                                }
+
                             }
 
                         })

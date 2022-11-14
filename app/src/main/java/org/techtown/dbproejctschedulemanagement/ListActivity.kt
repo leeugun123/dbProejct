@@ -7,12 +7,15 @@ import android.util.Log
 import android.widget.Button
 import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
+import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_list.*
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
 import org.techtown.dbproejctschedulemanagement.databinding.ActivityListBinding
 
-class ListActivity : AppCompatActivity() {
+class ListActivity : AppCompatActivity() , OnItemClick{
 
     private lateinit var mBinding : ActivityListBinding
     private lateinit var adapter : ListAdapter
@@ -71,4 +74,22 @@ class ListActivity : AppCompatActivity() {
 
 
     }
+
+    override fun updateList(list: WorkList) {
+
+        lifecycleScope.launch(Dispatchers.IO){
+            model.update(list)
+        }
+
+    }
+
+    override fun deleteList(list: WorkList) {
+
+        lifecycleScope.launch(Dispatchers.IO){
+            model.delete(list)
+        }
+
+    }
+
+
 }
