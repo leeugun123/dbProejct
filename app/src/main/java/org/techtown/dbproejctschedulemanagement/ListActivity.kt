@@ -9,28 +9,26 @@ import android.widget.TextView
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.activity_list.*
+import org.techtown.dbproejctschedulemanagement.databinding.ActivityListBinding
 
 class ListActivity : AppCompatActivity() {
 
+    private lateinit var mBinding : ActivityListBinding
     private lateinit var adapter : ListAdapter
     private lateinit var model : ListViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_list)
+        mBinding = ActivityListBinding.inflate(layoutInflater)
+        setContentView(mBinding.root)
+
 
         val day = intent.getStringExtra("day")
         //이전 액티비티에서 날짜 가져오기
 
-        val setDay : TextView = findViewById(R.id.day)
-        setDay.setText(day)
 
-        val registerButton : Button = findViewById(R.id.registerButton)
-        //등록 버튼
-        val cancelButton : Button = findViewById(R.id.cancel_button)
-
-        var list : RecyclerView = findViewById(R.id.list)
-
+        mBinding.day.setText(day)
 
 
         adapter = ListAdapter(this)
@@ -54,7 +52,7 @@ class ListActivity : AppCompatActivity() {
         }
 
 
-        registerButton.setOnClickListener {
+        mBinding.registerButton.setOnClickListener {
 
             val intent = Intent(this,RegisterActivity::class.java)
 
@@ -66,7 +64,7 @@ class ListActivity : AppCompatActivity() {
 
         }
 
-        cancelButton.setOnClickListener {
+        mBinding.cancelButton.setOnClickListener {
             finish()
         }
 

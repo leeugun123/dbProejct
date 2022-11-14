@@ -1,34 +1,28 @@
 package org.techtown.dbproejctschedulemanagement
 
+import android.app.AlertDialog
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import org.techtown.dbproejctschedulemanagement.databinding.ListBinding
 
-class ListAdapter(listener: ListActivity) : RecyclerView.Adapter<ListAdapter.ItemViewHolder>(){
+class ListAdapter(listener: ListActivity) : RecyclerView.Adapter<ListAdapter.ViewHolder>(){
 
     private val item = ArrayList<WorkList>()
     private val mCallback = listener
 
     override fun getItemCount(): Int = item.size
 
-    class ItemViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
-
-        val title : TextView = itemView.findViewById(R.id.title)
-        val time : TextView = itemView.findViewById(R.id.time)
-
-    }
-
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ItemViewHolder {
-
-        val view = LayoutInflater.from(parent.context)
-            .inflate(R.layout.list,parent,false)
-
-        return ItemViewHolder(view)
 
 
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
+
+       val mBinding = ListBinding.inflate(LayoutInflater.from(parent.context),parent,false)
+        return ViewHolder(mBinding)
     }
 
 
@@ -40,12 +34,27 @@ class ListAdapter(listener: ListActivity) : RecyclerView.Adapter<ListAdapter.Ite
 
 
 
-    override fun onBindViewHolder(holder: ListAdapter.ItemViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ListAdapter.ViewHolder, position: Int) {
 
-        holder.title.text = item.get(holder.adapterPosition).title
-        holder.time.text = item.get(holder.adapterPosition).time
+        holder.bind(item[position])
 
     }
+
+    inner class ViewHolder(private val binding: ListBinding) : RecyclerView.ViewHolder(binding.root) {
+
+        fun bind(item: WorkList?) {
+
+            if (item != null) {
+                binding.title.setText(item.title)
+            }
+
+            if (item != null) {
+                binding.time.setText(item.time)
+            }
+
+
+
+        }
 
 
 

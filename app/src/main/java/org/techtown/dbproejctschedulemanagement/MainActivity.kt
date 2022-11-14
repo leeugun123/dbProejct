@@ -16,17 +16,16 @@ import java.time.format.DateTimeFormatter
 
 class MainActivity : AppCompatActivity(){
 
-    private lateinit var binding : ActivityMainBinding
-
-
+    private lateinit var mBinding : ActivityMainBinding
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.activity_main)
 
         //binding 초기화
-        binding = DataBindingUtil.setContentView(this,R.layout.activity_main)
+        mBinding = ActivityMainBinding.inflate(layoutInflater)
+        setContentView(mBinding.root)
+
 
         //현재날짜
         selectedDate = LocalDate.now()
@@ -35,14 +34,14 @@ class MainActivity : AppCompatActivity(){
         setMonthView()
 
         //이전달 버튼
-        binding.preBtn.setOnClickListener {
+        mBinding.preBtn.setOnClickListener {
             //현재 월 -1 변수 담기
             selectedDate = selectedDate.minusMonths(1)
             setMonthView()
         }
 
         //다음달 버튼
-        binding.nextBtn.setOnClickListener {
+        mBinding.nextBtn.setOnClickListener {
             selectedDate = selectedDate.plusMonths(1)
             setMonthView()
         }
@@ -54,7 +53,7 @@ class MainActivity : AppCompatActivity(){
     private fun setMonthView() {
         //년월 텍스트뷰 셋팅
 
-        binding.monthYearText.text = monthYearFromDate(selectedDate)
+        mBinding.monthYearText.text = monthYearFromDate(selectedDate)
 
         //날자 생성해서 리스트에 담기
         val dayList = dayInMonthArray(selectedDate)
@@ -66,10 +65,10 @@ class MainActivity : AppCompatActivity(){
         var manager : RecyclerView.LayoutManager = GridLayoutManager(applicationContext,7)
 
         //레이아웃 적용
-        binding.recyclerView.layoutManager = manager
+        mBinding.recyclerView.layoutManager = manager
 
         //어뎁터 적용
-        binding.recyclerView.adapter = adapter
+        mBinding.recyclerView.adapter = adapter
     }
 
 
