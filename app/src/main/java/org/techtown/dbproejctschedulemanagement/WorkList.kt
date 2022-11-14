@@ -7,7 +7,8 @@ import androidx.room.PrimaryKey
 @Entity(tableName = "WorkList")
 data class WorkList(
 
-    @PrimaryKey(autoGenerate = true) var id : Long,
+    @PrimaryKey(autoGenerate = true)
+    var id : Long,
 
     @ColumnInfo(name = "day")
     var day : String?,

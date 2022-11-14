@@ -3,6 +3,7 @@ package org.techtown.dbproejctschedulemanagement
 import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
+import android.content.Intent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -62,12 +63,23 @@ class ListAdapter(listener: ListActivity) : RecyclerView.Adapter<ListAdapter.Vie
                         ,DialogInterface.OnClickListener{dialogInterface, i ->
 
                             if(i == 0){
-                                Toast.makeText(itemView.context,"수정",Toast.LENGTH_SHORT).show()
+
+                                val intent = Intent(itemView.context,UpdateActivity::class.java)
+
+                                if (item != null) {
+                                    intent.putExtra("day",item.day)
+                                    intent.putExtra("id",item.id)
+                                }
+
+                                intent.run {
+                                    itemView.context.startActivity(this)
+                                }
 
 
 
                             }
                             else if(i == 1){
+
                                 Toast.makeText(itemView.context,"삭제 되었습니다.",Toast.LENGTH_SHORT).show()
 
                                 if (item != null) {
