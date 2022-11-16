@@ -15,7 +15,8 @@ class ListViewModel(application: Application) : AndroidViewModel(application){
 
     fun getSelectedList(day : String) : LiveData<List<WorkList>>{
         return repository.getSelectList(day)
-    }
+    }//선택한 날짜로 데이터를 구별
+
 
     fun insert(list : WorkList){
         repository.insert(list)

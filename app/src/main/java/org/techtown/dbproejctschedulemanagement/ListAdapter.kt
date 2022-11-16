@@ -10,6 +10,7 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import org.techtown.dbproejctschedulemanagement.databinding.ListBinding
 
 class ListAdapter(listener: ListActivity) : RecyclerView.Adapter<ListAdapter.ViewHolder>(){
@@ -44,7 +45,7 @@ class ListAdapter(listener: ListActivity) : RecyclerView.Adapter<ListAdapter.Vie
 
         fun bind(item: WorkList?) {
 
-            val listArray : Array<String> = arrayOf("수정","삭제")
+            val listArray : Array<String> = arrayOf("수정","삭제","작업 완료")
 
             if (item != null) {
                 binding.title.setText(item.title)
@@ -53,6 +54,18 @@ class ListAdapter(listener: ListActivity) : RecyclerView.Adapter<ListAdapter.Vie
             if (item != null) {
                 binding.time.setText(item.time)
             }//시간
+
+            if(item != null){
+
+                if(item.check == false){
+                    binding.checkImg.setImageResource(R.drawable.clear_img)
+                }
+                else{
+                    binding.checkImg.setImageResource(R.drawable.check_img)
+                }
+
+            }//완료 여부
+
 
             itemView.setOnClickListener {
 
@@ -86,6 +99,12 @@ class ListAdapter(listener: ListActivity) : RecyclerView.Adapter<ListAdapter.Vie
                                     mCallback.deleteList(item)
                                 }
 
+                            }
+                            else if(i == 2){
+
+                                if (item != null) {
+                                    mCallback.updateList(WorkList(item.id,item.day,item.title, item.time ,true))
+                                }
                             }
 
                         })

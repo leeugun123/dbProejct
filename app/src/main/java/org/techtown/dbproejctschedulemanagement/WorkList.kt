@@ -19,7 +19,11 @@ data class WorkList(
     //할일
 
     @ColumnInfo(name = "time")
-    val time : String?
+    val time : String?,
     //시간
+
+    @ColumnInfo(name = "check")
+    val check : Boolean?,
+    //스케줄을 수행했는지 체크
 
 )

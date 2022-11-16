@@ -35,7 +35,6 @@ class UpdateActivity : AppCompatActivity() {
         //viewModel 초기화
 
 
-
         val day : String? = intent.getStringExtra("day")
         //이전 액티비티에서 날짜 가져오기
 
@@ -64,7 +63,7 @@ class UpdateActivity : AppCompatActivity() {
             Log.e("TAG",parsingDay.toString())
 
             lifecycleScope.launch(Dispatchers.IO){
-                with(model) { update(WorkList(id,parsingDay,mBinding.workText.text.toString(), "$hour"+"시 "+"$min"+"분")) }
+                with(model) { update(WorkList(id,parsingDay,mBinding.workText.text.toString(), "$hour"+"시 "+"$min"+"분",false)) }
             }
 
             finish()

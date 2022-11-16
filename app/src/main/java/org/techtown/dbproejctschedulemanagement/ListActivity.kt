@@ -31,7 +31,7 @@ class ListActivity : AppCompatActivity() , OnItemClick{
         //이전 액티비티에서 날짜 가져오기
 
 
-        mBinding.day.setText(day)
+        mBinding.day.setText(day+" 일정")
 
 
         day = day?.replace("년","")?.replace("월","")
@@ -50,7 +50,6 @@ class ListActivity : AppCompatActivity() , OnItemClick{
 
             if (day != null) {
                 getSelectedList(day).observe(this@ListActivity) { lists ->
-
 
                     adapter.setList(lists)
                     adapter.notifyDataSetChanged()
