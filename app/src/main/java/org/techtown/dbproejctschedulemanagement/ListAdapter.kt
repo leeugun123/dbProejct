@@ -12,6 +12,8 @@ import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import org.techtown.dbproejctschedulemanagement.databinding.ListBinding
+import java.util.*
+import kotlin.collections.ArrayList
 
 class ListAdapter(listener: ListActivity) : RecyclerView.Adapter<ListAdapter.ViewHolder>(){
 
@@ -31,6 +33,9 @@ class ListAdapter(listener: ListActivity) : RecyclerView.Adapter<ListAdapter.Vie
 
     fun setList(list: List<WorkList>) {
         item.clear()
+
+        Collections.sort(list)
+
         item.addAll(list)
     }
 

@@ -11,6 +11,7 @@
         android:orientation="vertical">
 
         <LinearLayout
+            android:layout_marginTop="10dp"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -32,8 +33,8 @@
                 android:text="11월 2022"
                 android:textAlignment="center"
                 android:layout_gravity="center"
-                android:textSize="35sp"
-                android:textColor="@color/purple_500"
+                android:textSize="30sp"
+                android:textColor="#808080"
                 />
 
             <ImageButton
@@ -130,6 +131,7 @@
         </LinearLayout>
 
         <androidx.recyclerview.widget.RecyclerView
+            android:layout_marginTop="20dp"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/recyclerView"/>

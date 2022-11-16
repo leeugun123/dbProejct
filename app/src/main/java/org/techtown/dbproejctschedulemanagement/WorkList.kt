@@ -26,4 +26,11 @@ data class WorkList(
     val check : Boolean?,
     //스케줄을 수행했는지 체크
 
-)
+) : Comparable<WorkList> {
+    override fun compareTo(other: WorkList): Int {
+
+        return Integer.parseInt(other.day?.replace("시","")!!.replace("분",""))-Integer.parseInt(
+            this.day?.replace("시","")!!.replace("분",""))
+    }
+
+}

@@ -13,7 +13,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:textAlignment="center"
-        android:textColor="@color/purple_700"
+        android:textColor="#808080"
         android:textSize="25sp"
         android:layout_weight="1"
         />
