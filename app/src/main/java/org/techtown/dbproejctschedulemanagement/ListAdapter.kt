@@ -87,8 +87,14 @@ class ListAdapter(listener: ListActivity) : RecyclerView.Adapter<ListAdapter.Vie
                                 val intent = Intent(itemView.context,UpdateActivity::class.java)
 
                                 if (item != null) {
-                                    intent.putExtra("day",item.day)
+
                                     intent.putExtra("id",item.id)
+                                    intent.putExtra("day",item.day)
+                                    intent.putExtra("title",item.title)
+                                    intent.putExtra("hour",item.hour)
+                                    intent.putExtra("minute",item.minute)
+                                    intent.putExtra("check",item.check)
+
                                 }
 
                                 intent.run {
@@ -97,7 +103,7 @@ class ListAdapter(listener: ListActivity) : RecyclerView.Adapter<ListAdapter.Vie
 
 
 
-                            }
+                            }//수정
                             else if(i == 1){
 
                                 Toast.makeText(itemView.context,"삭제 되었습니다.",Toast.LENGTH_SHORT).show()
@@ -111,6 +117,9 @@ class ListAdapter(listener: ListActivity) : RecyclerView.Adapter<ListAdapter.Vie
 
                                 if (item != null) {
                                     mCallback.updateList(WorkList(item.id,item.day,item.title, item.hour,item.minute ,true))
+
+                                    Toast.makeText(itemView.context,"일정을 수행하였습니다.",Toast.LENGTH_SHORT).show()
+
                                 }
                             }
 

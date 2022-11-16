@@ -26,19 +26,27 @@ class UpdateActivity : AppCompatActivity() {
         mBinding = ActivityUpdateBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
-        val currentTime = LocalDateTime.now()
+        var id : Long = intent.getLongExtra("id",0)
 
-        var hour = currentTime.hour
-        var min = currentTime.minute
+        var day : String? = intent.getStringExtra("day")
+        //이전 액티비티에서 날짜 가져오기
+
+        var title : String? = intent.getStringExtra("title")
+
+        var hour = intent.getIntExtra("hour",0)
+
+        var min = intent.getIntExtra("minute",0)
+
+        var check = intent.getBooleanExtra("check",false)
+
 
         model = ViewModelProvider(this).get(ListViewModel::class.java)
         //viewModel 초기화
 
+        mBinding.workText.hint = title
 
-        val day : String? = intent.getStringExtra("day")
-        //이전 액티비티에서 날짜 가져오기
-
-        val id : Long = intent.getLongExtra("id",0)
+        mBinding.timePicker.hour = hour
+        mBinding.timePicker.minute = min
 
         //TimePick 값 변경 이벤트
         mBinding.timePicker.setOnTimeChangedListener{timePicker,hourOfDay,minute ->
@@ -59,11 +67,12 @@ class UpdateActivity : AppCompatActivity() {
             var parsingDay : String? = day?.replace("년","")?.replace("월","")
                 ?.replace("일","")?.replace(" ","")
 
-
-            Log.e("TAG",parsingDay.toString())
+            if(!mBinding.workText.text.isEmpty())
+                title = mBinding.workText.text.toString()
+            //비워있지 않다면 editText 그대로 적용
 
             lifecycleScope.launch(Dispatchers.IO){
-                with(model) { update(WorkList(id,parsingDay,mBinding.workText.text.toString(), hour,min,false)) }
+                with(model) { update(WorkList(id,parsingDay,title, hour,min,check)) }
             }
 
             finish()
