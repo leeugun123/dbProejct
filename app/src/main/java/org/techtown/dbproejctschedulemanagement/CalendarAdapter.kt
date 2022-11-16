@@ -8,6 +8,7 @@ import android.os.Build
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
@@ -19,6 +20,7 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>, val context : 
     class ItemViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
 
         val dayText : TextView = itemView.findViewById(R.id.dayText)
+        val checkWork : ImageView = itemView.findViewById(R.id.check_img)
 
     }
 
@@ -62,6 +64,12 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>, val context : 
         else if(position == 0 || position % 7 == 0){
             holder.dayText.setTextColor(Color.RED)
         }//일요일은 빨강
+
+
+
+        //holder.checkWork.setImageResource(R.drawable.check_img)
+        //일정이 있는지 체크해주는 imageView
+
 
         //날짜 클릭 이벤트
         holder.itemView.setOnClickListener {
