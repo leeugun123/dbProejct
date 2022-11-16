@@ -43,7 +43,7 @@ class RegisterActivity : AppCompatActivity() {
 
 
         //TimePick 값 변경 이벤트
-        mBinding.timePicker.setOnTimeChangedListener{timePicker,hourOfDay,minute ->
+        mBinding.timePicker.setOnTimeChangedListener{ _, hourOfDay, minute ->
 
             hour = hourOfDay
             min = minute
@@ -65,7 +65,7 @@ class RegisterActivity : AppCompatActivity() {
             lifecycleScope.launch(Dispatchers.IO){
                 with(model) {
                     if (day != null) {
-                        insert(WorkList(0,parsingDay,mBinding.workText.text.toString(), "$hour"+"시 "+"$min"+"분",false))
+                        insert(WorkList(0,parsingDay,mBinding.workText.text.toString(), hour, min,false))
                     }
                 }
             }
@@ -73,6 +73,8 @@ class RegisterActivity : AppCompatActivity() {
             finish()
 
         }
+
+
 
 
 

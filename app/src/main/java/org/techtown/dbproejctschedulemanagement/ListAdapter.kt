@@ -4,6 +4,7 @@ import android.app.AlertDialog
 import android.content.Context
 import android.content.DialogInterface
 import android.content.Intent
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -34,7 +35,8 @@ class ListAdapter(listener: ListActivity) : RecyclerView.Adapter<ListAdapter.Vie
     fun setList(list: List<WorkList>) {
         item.clear()
 
-        Collections.sort(list)
+        if(!list.isEmpty())
+            Collections.sort(list)
 
         item.addAll(list)
     }
@@ -57,7 +59,7 @@ class ListAdapter(listener: ListActivity) : RecyclerView.Adapter<ListAdapter.Vie
             }//스케줄 제목
 
             if (item != null) {
-                binding.time.setText(item.time)
+                binding.time.setText(item.hour.toString()+"시 "+ item.minute+"분")
             }//시간
 
             if(item != null){
@@ -108,7 +110,7 @@ class ListAdapter(listener: ListActivity) : RecyclerView.Adapter<ListAdapter.Vie
                             else if(i == 2){
 
                                 if (item != null) {
-                                    mCallback.updateList(WorkList(item.id,item.day,item.title, item.time ,true))
+                                    mCallback.updateList(WorkList(item.id,item.day,item.title, item.hour,item.minute ,true))
                                 }
                             }
 

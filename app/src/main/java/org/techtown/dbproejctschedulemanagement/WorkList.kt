@@ -1,5 +1,6 @@
 package org.techtown.dbproejctschedulemanagement
 
+import android.util.Log
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
@@ -18,9 +19,13 @@ data class WorkList(
     val title : String?,
     //할일
 
-    @ColumnInfo(name = "time")
-    val time : String?,
-    //시간
+    @ColumnInfo(name = "hour")
+    val hour : Int?,
+    //시
+
+    @ColumnInfo(name = "minute")
+    val minute : Int?,
+    //분
 
     @ColumnInfo(name = "check")
     val check : Boolean?,
@@ -29,8 +34,12 @@ data class WorkList(
 ) : Comparable<WorkList> {
     override fun compareTo(other: WorkList): Int {
 
-        return Integer.parseInt(other.day?.replace("시","")!!.replace("분",""))-Integer.parseInt(
-            this.day?.replace("시","")!!.replace("분",""))
+        if(this.hour == other.hour){
+            return this.minute!! - other.minute!!;
+        }
+        else
+            return this.hour!! - other.hour!!;
+
     }
 
 }

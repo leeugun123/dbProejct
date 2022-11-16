@@ -63,7 +63,7 @@ class UpdateActivity : AppCompatActivity() {
             Log.e("TAG",parsingDay.toString())
 
             lifecycleScope.launch(Dispatchers.IO){
-                with(model) { update(WorkList(id,parsingDay,mBinding.workText.text.toString(), "$hour"+"시 "+"$min"+"분",false)) }
+                with(model) { update(WorkList(id,parsingDay,mBinding.workText.text.toString(), hour,min,false)) }
             }
 
             finish()
