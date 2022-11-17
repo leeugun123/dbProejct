@@ -5,6 +5,7 @@ import android.content.Context
 import android.content.Intent
 import android.graphics.Color
 import android.os.Build
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -13,9 +14,12 @@ import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
 import java.time.LocalDate
+import java.util.*
+import kotlin.collections.ArrayList
 
-class CalendarAdapter(private val dayList: ArrayList<LocalDate?>, val context : Context) : RecyclerView.Adapter<CalendarAdapter.ItemViewHolder>() {
+class CalendarAdapter(private val dayList: ArrayList<LocalDate?>, val context : Context, listener: MainActivity) : RecyclerView.Adapter<CalendarAdapter.ItemViewHolder>() {
 
+    private val mCallback = listener
 
     class ItemViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
 
@@ -36,7 +40,6 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>, val context : 
     }
 
 
-
     //데이터 설정
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onBindViewHolder(holder: ItemViewHolder, position: Int) {
@@ -51,10 +54,10 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>, val context : 
             holder.dayText.text = day.dayOfMonth.toString()
 
             //현재 날짜 색상 칠하기
-
             if(day == CalendarUtil.selectedDate){
                 holder.itemView.setBackgroundColor(Color.LTGRAY)
             }
+
         }
 
         //텍스트 색상 지정(토,일)
@@ -67,7 +70,16 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>, val context : 
 
 
 
-        //holder.checkWork.setImageResource(R.drawable.check_img)
+
+
+        var iYear = day?.year
+        var iMonth = day?.monthValue
+        var iDay = day?.dayOfMonth
+        //년 , 달 , 일
+
+
+        if(mCallback.getSelectedList(day.toString().replace("-","")))
+            holder.checkWork.setImageResource(R.drawable.check_img)
         //일정이 있는지 체크해주는 imageView
 
 
@@ -76,10 +88,6 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>, val context : 
 
             val intent = Intent(context,ListActivity::class.java)
 
-            var iYear = day?.year
-            var iMonth = day?.monthValue
-            var iDay = day?.dayOfMonth
-            //년 , 달 , 일
 
             var yearmonDay = "$iYear"+"년 "+"$iMonth"+"월 "+"$iDay"+"일"
 

@@ -13,6 +13,11 @@ interface ListDao {
     @Query("SELECT * FROM WorkList WHERE day = :day")
     fun getSelectedList(day : String) : LiveData<List<WorkList>>
 
+    /*
+    @Query("SELECT * FROM WorkList WHERE EXISTS (SELECT * FROM WorkList WHERE day = :day)")
+    fun getSelectedListExist(day : String) : Boolean
+    */
+
     @Delete
     fun deleteList(list : WorkList)
 

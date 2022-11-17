@@ -1,8 +1,10 @@
 package org.techtown.dbproejctschedulemanagement
 
+import android.content.ContentValues.TAG
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TimePicker
@@ -61,6 +63,8 @@ class RegisterActivity : AppCompatActivity() {
 
             var parsingDay : String? = day?.replace("년","")?.replace("월","")
                 ?.replace("일","")?.replace(" ","")
+
+            Log.e(TAG,parsingDay.toString())
 
             lifecycleScope.launch(Dispatchers.IO){
                 with(model) {

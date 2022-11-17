@@ -3,11 +3,15 @@ package org.techtown.dbproejctschedulemanagement
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.widget.Toast
 import androidx.annotation.RequiresApi
 import androidx.databinding.DataBindingUtil
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.android.synthetic.main.activity_list.*
 import org.techtown.dbproejctschedulemanagement.CalendarUtil.Companion.selectedDate
 import org.techtown.dbproejctschedulemanagement.databinding.ActivityMainBinding
 import java.time.LocalDate
@@ -17,6 +21,7 @@ import java.time.format.DateTimeFormatter
 class MainActivity : AppCompatActivity(){
 
     private lateinit var mBinding : ActivityMainBinding
+    private lateinit var model : ListViewModel
 
     @RequiresApi(Build.VERSION_CODES.O)
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -26,6 +31,8 @@ class MainActivity : AppCompatActivity(){
         mBinding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(mBinding.root)
 
+        model = ViewModelProvider(this).get(ListViewModel::class.java)
+        //viewModel 초기화
 
         //현재날짜
         selectedDate = LocalDate.now()
@@ -59,7 +66,7 @@ class MainActivity : AppCompatActivity(){
         val dayList = dayInMonthArray(selectedDate)
 
         //어뎁터 초기화
-        val adapter = CalendarAdapter(dayList,this)
+        val adapter = CalendarAdapter(dayList,this,this)
 
         //레이아웃 설정(열 7개)
         var manager : RecyclerView.LayoutManager = GridLayoutManager(applicationContext,7)
@@ -83,15 +90,6 @@ class MainActivity : AppCompatActivity(){
     }
 
 
-    //날짜 타입
-    @RequiresApi(Build.VERSION_CODES.O)
-    private fun yearMonthFromDate(date: LocalDate) : String{
-
-        var formatter = DateTimeFormatter.ofPattern("yyyy년 MM월")
-
-        //받아온 날짜를 해당 포맷으로 설정
-        return date.format(formatter)
-    }
 
     //날짜 생성
     @RequiresApi(Build.VERSION_CODES.O)
@@ -111,8 +109,6 @@ class MainActivity : AppCompatActivity(){
         var dayOfWeek = firstDay.dayOfWeek.value
 
 
-
-
         for(i in 1..41){
 
             if(i <= dayOfWeek || i  > (lastDay + dayOfWeek)){
@@ -128,6 +124,33 @@ class MainActivity : AppCompatActivity(){
         return dayList
 
     }
+
+    fun getSelectedList(day: String): Boolean {
+
+        var exist : Boolean = false
+
+        with(model) {
+
+            if (day != null) {
+                getSelectedList(day).observe(this@MainActivity) { lists ->
+
+                    if(lists.isNotEmpty()){
+                        exist = true
+                        Log.e("TAG",exist.toString())
+                    }
+
+                }
+            }
+
+        }//비동기로 구현됨 , 파싱은 원활하게 수행되고 있음
+
+
+
+        return exist
+
+    }
+
+
 
 
 

@@ -23,8 +23,6 @@ class ListAdapter(listener: ListActivity) : RecyclerView.Adapter<ListAdapter.Vie
 
     override fun getItemCount(): Int = item.size
 
-
-
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
 
        val mBinding = ListBinding.inflate(LayoutInflater.from(parent.context),parent,false)
