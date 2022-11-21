@@ -12,6 +12,7 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import kotlinx.android.synthetic.main.activity_list.*
+import kotlinx.coroutines.*
 import org.techtown.dbproejctschedulemanagement.CalendarUtil.Companion.selectedDate
 import org.techtown.dbproejctschedulemanagement.databinding.ActivityMainBinding
 import java.time.LocalDate
@@ -76,6 +77,9 @@ class MainActivity : AppCompatActivity(){
 
         //어뎁터 적용
         mBinding.recyclerView.adapter = adapter
+
+
+
     }
 
 
@@ -125,25 +129,32 @@ class MainActivity : AppCompatActivity(){
 
     }
 
-    fun getSelectedList(day: String): Boolean {
+    suspend fun getSelectedList(day: String): Boolean {
 
         var exist : Boolean = false
 
-        with(model) {
+        val work = GlobalScope.async {
 
             if (day != null) {
-                getSelectedList(day).observe(this@MainActivity) { lists ->
+
+                model.getSelectedList(day).observe(this@MainActivity){ lists->
 
                     if(lists.isNotEmpty()){
                         exist = true
-                        Log.e("TAG",exist.toString())
+                        //Log.e("TAG","비동기 "+exist.toString())
                     }
 
                 }
+
             }
 
-        }//비동기로 구현됨 , 파싱은 원활하게 수행되고 있음
 
+        }
+
+
+        work.join()
+
+        Log.e("TAG",exist.toString())
 
 
         return exist
@@ -156,3 +167,5 @@ class MainActivity : AppCompatActivity(){
 
 
 }
+
+

@@ -13,6 +13,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.annotation.RequiresApi
 import androidx.recyclerview.widget.RecyclerView
+import kotlinx.coroutines.runBlocking
 import java.time.LocalDate
 import java.util.*
 import kotlin.collections.ArrayList
@@ -20,6 +21,9 @@ import kotlin.collections.ArrayList
 class CalendarAdapter(private val dayList: ArrayList<LocalDate?>, val context : Context, listener: MainActivity) : RecyclerView.Adapter<CalendarAdapter.ItemViewHolder>() {
 
     private val mCallback = listener
+
+    private var check = false
+
 
     class ItemViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
 
@@ -69,25 +73,22 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>, val context : 
         }//일요일은 빨강
 
 
-
-
-
         var iYear = day?.year
         var iMonth = day?.monthValue
         var iDay = day?.dayOfMonth
         //년 , 달 , 일
 
 
-        if(mCallback.getSelectedList(day.toString().replace("-","")))
+        if(check)
             holder.checkWork.setImageResource(R.drawable.check_img)
         //일정이 있는지 체크해주는 imageView
+
 
 
         //날짜 클릭 이벤트
         holder.itemView.setOnClickListener {
 
             val intent = Intent(context,ListActivity::class.java)
-
 
             var yearmonDay = "$iYear"+"년 "+"$iMonth"+"월 "+"$iDay"+"일"
 
@@ -103,6 +104,11 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>, val context : 
 
     }
 
+    suspend fun getCheck(str : String) {
+
+        check = mCallback.getSelectedList(str.toString().replace("-",""))
+
+    }
 
 
     override fun getItemCount(): Int {
