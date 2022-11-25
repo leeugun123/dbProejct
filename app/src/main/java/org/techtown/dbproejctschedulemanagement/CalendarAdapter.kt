@@ -18,11 +18,7 @@ import java.time.LocalDate
 import java.util.*
 import kotlin.collections.ArrayList
 
-class CalendarAdapter(private val dayList: ArrayList<LocalDate?>, val context : Context, listener: MainActivity) : RecyclerView.Adapter<CalendarAdapter.ItemViewHolder>() {
-
-    private val mCallback = listener
-
-    private var check = false
+class CalendarAdapter(private val dayList: ArrayList<LocalDate?>,val checkList : ArrayList<Boolean> ,val context : Context, listener: MainActivity) : RecyclerView.Adapter<CalendarAdapter.ItemViewHolder>() {
 
 
     class ItemViewHolder(itemView : View) : RecyclerView.ViewHolder(itemView){
@@ -50,6 +46,7 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>, val context : 
 
         //날짜 변수에 담기
         var day = dayList[holder.adapterPosition]
+        var check = checkList[holder.adapterPosition]
 
         if(day == null){
             holder.dayText.text = ""
@@ -64,6 +61,12 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>, val context : 
 
         }
 
+        if(check){
+            holder.checkWork.setImageResource(R.drawable.check_img)
+        }
+
+
+
         //텍스트 색상 지정(토,일)
         if((position + 1) % 7 == 0){
             holder.dayText.setTextColor(Color.BLUE)
@@ -77,11 +80,6 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>, val context : 
         var iMonth = day?.monthValue
         var iDay = day?.dayOfMonth
         //년 , 달 , 일
-
-
-        if(check)
-            holder.checkWork.setImageResource(R.drawable.check_img)
-        //일정이 있는지 체크해주는 imageView
 
 
 
@@ -104,11 +102,6 @@ class CalendarAdapter(private val dayList: ArrayList<LocalDate?>, val context : 
 
     }
 
-    suspend fun getCheck(str : String) {
-
-        check = mCallback.getSelectedList(str.toString().replace("-",""))
-
-    }
 
 
     override fun getItemCount(): Int {

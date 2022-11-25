@@ -1,5 +1,6 @@
 package org.techtown.dbproejctschedulemanagement
 
+import android.content.ContentValues.TAG
 import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -41,6 +42,8 @@ class MainActivity : AppCompatActivity(){
         //화면 설정
         setMonthView()
 
+        //Log.e("TAG","캘린더를 최신화 합니다.")
+
         //이전달 버튼
         mBinding.preBtn.setOnClickListener {
             //현재 월 -1 변수 담기
@@ -54,6 +57,8 @@ class MainActivity : AppCompatActivity(){
             setMonthView()
         }
 
+
+
     }
 
     //날짜 화면에 보여주기
@@ -66,17 +71,53 @@ class MainActivity : AppCompatActivity(){
         //날자 생성해서 리스트에 담기
         val dayList = dayInMonthArray(selectedDate)
 
-        //어뎁터 초기화
-        val adapter = CalendarAdapter(dayList,this,this)
+        val checkList : ArrayList<Boolean> = arrayListOf()
 
-        //레이아웃 설정(열 7개)
-        var manager : RecyclerView.LayoutManager = GridLayoutManager(applicationContext,7)
+        //Log.e(TAG,dayList.toString())
 
-        //레이아웃 적용
-        mBinding.recyclerView.layoutManager = manager
+        for(month in 0 until dayList.size){
 
-        //어뎁터 적용
-        mBinding.recyclerView.adapter = adapter
+            Log.e(TAG,"202211$month")
+
+           CoroutineScope(Dispatchers.Main).launch {
+
+               model.getSelectedList("202211$month").observe(this@MainActivity){ lists->
+
+                   if(lists.isNotEmpty()){
+                      // Log.e(TAG,"추가되고 있습니다")
+                       checkList.add(true)
+                   }
+                   else
+                       checkList.add(false)
+
+               }
+
+
+           }
+
+        }
+
+        val handler = android.os.Handler()
+        handler.postDelayed({
+
+            //어뎁터 초기화
+            val adapter = CalendarAdapter(dayList,checkList,this,this)
+
+            //레이아웃 설정(열 7개)
+            var manager : RecyclerView.LayoutManager = GridLayoutManager(applicationContext,7)
+
+            //레이아웃 적용
+            mBinding.recyclerView.layoutManager = manager
+
+            //어뎁터 적용
+            mBinding.recyclerView.adapter = adapter
+
+
+        }, 100)
+        //비동기 구현의 문제점 시발
+
+
+
 
 
 
@@ -129,37 +170,7 @@ class MainActivity : AppCompatActivity(){
 
     }
 
-    suspend fun getSelectedList(day: String): Boolean {
 
-        var exist : Boolean = false
-
-        val work = GlobalScope.async {
-
-            if (day != null) {
-
-                model.getSelectedList(day).observe(this@MainActivity){ lists->
-
-                    if(lists.isNotEmpty()){
-                        exist = true
-                        //Log.e("TAG","비동기 "+exist.toString())
-                    }
-
-                }
-
-            }
-
-
-        }
-
-
-        work.join()
-
-        Log.e("TAG",exist.toString())
-
-
-        return exist
-
-    }
 
 
 
